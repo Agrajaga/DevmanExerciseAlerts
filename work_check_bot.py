@@ -26,15 +26,15 @@ if __name__ == "__main__":
                 timeout=timeout,
                 params=params)
             response.raise_for_status()
-            answer = response.json()
+            user_reviews = response.json()
 
             params = {}
-            if answer["status"] == "timeout":
+            if user_reviews["status"] == "timeout":
                 params = {
-                    "timestamp": answer["timestamp_to_request"],
+                    "timestamp": user_reviews["timestamp_to_request"],
                 }
-            if answer["status"] == "found":
-                for attempt in answer["new_attempts"]:
+            if user_reviews["status"] == "found":
+                for attempt in user_reviews["new_attempts"]:
                     work_status = "Преподавателю все понравилось, можно приступать к следующему уроку!"
                     if attempt["is_negative"]:
                         work_status = "К сожалению в работе нашлись ошибки\."
