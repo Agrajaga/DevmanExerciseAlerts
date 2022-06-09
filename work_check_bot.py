@@ -1,4 +1,5 @@
 import os
+from time import sleep
 
 import requests
 import telegram
@@ -49,4 +50,5 @@ if __name__ == "__main__":
         except requests.exceptions.ReadTimeout:
             print("No answer from server.")
         except requests.exceptions.ConnectionError:
+            sleep(300)
             print("Connection error. Reconnecting...")
