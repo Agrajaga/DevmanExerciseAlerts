@@ -29,12 +29,14 @@ if __name__ == "__main__":
             response.raise_for_status()
             user_reviews = response.json()
 
-            params = {}
             if user_reviews["status"] == "timeout":
                 params = {
                     "timestamp": user_reviews["timestamp_to_request"],
                 }
             if user_reviews["status"] == "found":
+                params = {
+                    "timestamp": user_reviews["last_attempt_timestamp"],
+                }
                 for attempt in user_reviews["new_attempts"]:
                     work_status = "Преподавателю все понравилось, можно приступать к следующему уроку!"
                     if attempt["is_negative"]:
