@@ -76,5 +76,4 @@ if __name__ == "__main__":
             sleep(300)
             logger.warning("Connection error. Reconnecting...")
         except Exception as err:
-            logger.warning("Бот упал с ошибкой")
-            logger.exception()
+            logger.exception(msg="Бот упал с ошибкой")
