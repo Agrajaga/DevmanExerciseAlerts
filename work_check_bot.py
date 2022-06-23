@@ -71,7 +71,10 @@ if __name__ == "__main__":
                         disable_web_page_preview=True,
                     )
         except requests.exceptions.ReadTimeout:
-            print("No answer from server.")
+            logger.warning("No answer from server.")
         except requests.exceptions.ConnectionError:
             sleep(300)
-            print("Connection error. Reconnecting...")
+            logger.warning("Connection error. Reconnecting...")
+        except Exception as err:
+            logger.warning("Бот упал с ошибкой")
+            logger.exception()
