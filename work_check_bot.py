@@ -1,3 +1,4 @@
+import logging
 import os
 from time import sleep
 
@@ -5,13 +6,33 @@ import requests
 import telegram
 from dotenv import load_dotenv
 
+
+class TelegramLogsHandler(logging.Handler):
+    def __init__(self, tg_bot: telegram.Bot, chat_id: int) -> None:
+        super().__init__()
+        self.tg_bot = tg_bot
+        self.chat_id = chat_id
+
+    def emit(self, record):
+        log_entry = self.format(record)
+        self.tg_bot.send_message(chat_id=self.chat_id, text=log_entry)
+
+
 if __name__ == "__main__":
     load_dotenv()
     devman_token = os.getenv("DEVMAN_API_TOKEN")
-    tg_token = os.getenv('TG_BOT_TOKEN')
-    tg_chat_id = os.getenv('TG_CHAT_ID')
+    tg_token = os.getenv("TG_BOT_TOKEN")
+    tg_chat_id = os.getenv("TG_CHAT_ID")
 
     bot = telegram.Bot(token=tg_token)
+
+    logging.basicConfig(
+        format="%(asctime)s: %(levelname)s: %(message)s"
+    )
+    logger = logging.getLogger("tg_devman_alert")
+    logger.setLevel(logging.WARNING)
+    logger.addHandler(TelegramLogsHandler(tg_bot=bot, chat_id=tg_chat_id))
+    logger.warning("Start logging")
 
     headers = {
         "Authorization": devman_token,
@@ -42,7 +63,7 @@ if __name__ == "__main__":
                     if attempt["is_negative"]:
                         work_status = "К сожалению в работе нашлись ошибки\."
                     work_desc = f'["{attempt["lesson_title"]}"]({attempt["lesson_url"]})'
-                    message = f'Преподаватель проверил работу {work_desc}\. {work_status}'
+                    message = f"Преподаватель проверил работу {work_desc}\.  \n{work_status}"
                     bot.send_message(
                         chat_id=tg_chat_id,
                         text=message,
