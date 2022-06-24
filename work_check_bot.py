@@ -60,15 +60,15 @@ if __name__ == "__main__":
                     "timestamp": user_reviews["last_attempt_timestamp"],
                 }
                 for attempt in user_reviews["new_attempts"]:
-                    work_status = "Преподавателю все понравилось, можно приступать к следующему уроку\!"
+                    work_status = "Преподавателю все понравилось, можно приступать к следующему уроку!"
                     if attempt["is_negative"]:
-                        work_status = "К сожалению в работе нашлись ошибки\."
-                    work_desc = f'["{attempt["lesson_title"]}"]({attempt["lesson_url"]})'
-                    message = f"Преподаватель проверил работу {work_desc}\.  \n{work_status}"
+                        work_status = "К сожалению в работе нашлись ошибки."
+                    work_desc = f'<a href="{attempt["lesson_url"]}">"{attempt["lesson_title"]}"</a>'
+                    message = f"Преподаватель проверил работу {work_desc}.\n{work_status}"
                     bot.send_message(
                         chat_id=tg_chat_id,
                         text=message,
-                        parse_mode=telegram.ParseMode.MARKDOWN_V2,
+                        parse_mode=telegram.ParseMode.HTML,
                         disable_web_page_preview=True,
                     )
         except requests.exceptions.ReadTimeout:
