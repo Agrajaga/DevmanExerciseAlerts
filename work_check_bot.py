@@ -60,7 +60,7 @@ if __name__ == "__main__":
                     "timestamp": user_reviews["last_attempt_timestamp"],
                 }
                 for attempt in user_reviews["new_attempts"]:
-                    work_status = "Преподавателю все понравилось, можно приступать к следующему уроку!"
+                    work_status = "Преподавателю все понравилось, можно приступать к следующему уроку\!"
                     if attempt["is_negative"]:
                         work_status = "К сожалению в работе нашлись ошибки\."
                     work_desc = f'["{attempt["lesson_title"]}"]({attempt["lesson_url"]})'
