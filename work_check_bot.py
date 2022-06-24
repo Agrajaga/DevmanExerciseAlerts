@@ -6,6 +6,8 @@ import requests
 import telegram
 from dotenv import load_dotenv
 
+logger = logging.getLogger("tg_devman_alert")
+
 
 class TelegramLogsHandler(logging.Handler):
     def __init__(self, tg_bot: telegram.Bot, chat_id: int) -> None:
@@ -29,7 +31,6 @@ if __name__ == "__main__":
     logging.basicConfig(
         format="%(asctime)s: %(levelname)s: %(message)s"
     )
-    logger = logging.getLogger("tg_devman_alert")
     logger.setLevel(logging.WARNING)
     logger.addHandler(TelegramLogsHandler(tg_bot=bot, chat_id=tg_chat_id))
     logger.warning("Start logging")
