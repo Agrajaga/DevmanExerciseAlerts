@@ -60,11 +60,14 @@ if __name__ == "__main__":
                     "timestamp": user_reviews["last_attempt_timestamp"],
                 }
                 for attempt in user_reviews["new_attempts"]:
-                    work_status = "Преподавателю все понравилось, можно приступать к следующему уроку!"
+                    work_status = "Преподавателю все понравилось,\
+ можно приступать к следующему уроку!"
                     if attempt["is_negative"]:
                         work_status = "К сожалению в работе нашлись ошибки."
-                    work_desc = f'<a href="{attempt["lesson_url"]}">"{attempt["lesson_title"]}"</a>'
-                    message = f"Преподаватель проверил работу {work_desc}.\n{work_status}"
+                    work_desc = f'<a href="{attempt["lesson_url"]}">\
+"{attempt["lesson_title"]}"</a>'
+                    message = f"Преподаватель проверил работу {work_desc}.\n\
+{work_status}"
                     bot.send_message(
                         chat_id=tg_chat_id,
                         text=message,
@@ -76,5 +79,5 @@ if __name__ == "__main__":
         except requests.exceptions.ConnectionError:
             sleep(300)
             logger.warning("Connection error. Reconnecting...")
-        except Exception as err:
+        except Exception:
             logger.exception(msg="Бот упал с ошибкой")
