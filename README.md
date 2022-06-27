@@ -17,9 +17,9 @@ pip install -r requrements.txt
 ```
 Создайте файл `.env` и поместите в него следующие ключи:
 ```
-DEVMAN_API_TOKEN = {Ваш токен API сайта Devman}
-TG_BOT_TOKEN = {Ваш токен телеграм-бота}
-TG_CHAT_ID = {ИД Вашего чата}
+DEVMAN_API_TOKEN={Ваш токен API сайта Devman}
+TG_BOT_TOKEN={Ваш токен телеграм-бота}
+TG_CHAT_ID={ИД Вашего чата}
 ```
 Токен API Devman можете получить на сайте в Вашем профиле в разделе API.
 Токен телеграм-бота получите у [Отца ботов](http://t.me/BotFather). ИД чата можете получить у [@userinfobot](http://t.me/userinfobot).  
